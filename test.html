@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Context vs Redux Toolkit 資料流</title>
+<style>
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+h1 {
+  margin-bottom: 5px;
+}
+.container {
+  display: flex;
+  gap: 50px;
+  margin-top: 20px;
+}
+.diagram {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 400px;
+  position: relative;
+}
+.box {
+  padding: 10px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  background: #fff;
+}
+.arrow {
+  text-align: center;
+  font-size: 24px;
+  margin: 5px 0;
+}
+.highlight {
+  background: yellow;
+  transition: background 0.3s ease;
+}
+button {
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: none;
+  background: #0077ff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #005ccc;
+}
+.async {
+  border-color: #ff6600;
+}
+</style>
+</head>
+<body>
+
+<h1>React Context vs Redux Toolkit（含非同步）</h1>
+
+<div class="container">
+  <!-- Context Diagram -->
+  <div class="diagram" id="context-diagram">
+    <h2>React Context</h2>
+    <div class="box" id="ctx-provider">Provider (state)</div>
+    <div class="arrow">⬇</div>
+    <div class="box" id="ctx-component1">Component A (useContext)</div>
+    <div class="box" id="ctx-component2">Component B (useContext)</div>
+    <button onclick="animateContext()">模擬更新</button>
+  </div>
+
+  <!-- Redux Toolkit Diagram -->
+  <div class="diagram" id="redux-diagram">
+    <h2>Redux Toolkit</h2>
+    <div class="box" id="rtk-component">Component (dispatch)</div>
+    <div class="arrow">➡</div>
+    <div class="box" id="rtk-reducer">Reducer</div>
+    <div class="arrow">➡</div>
+    <div class="box" id="rtk-store">Store</div>
+    <div class="arrow">⬅</div>
+    <div class="box" id="rtk-selector">Component (useSelector)</div>
+    <button onclick="animateRedux()">模擬同步更新</button>
+  </div>
+
+  <!-- Redux Toolkit Async Diagram -->
+  <div class="diagram" id="redux-async-diagram">
+    <h2>Redux Toolkit (非同步 API)</h2>
+    <div class="box" id="async-component">Component (dispatch thunk)</div>
+    <div class="arrow">➡</div>
+    <div class="box async" id="async-thunk">createAsyncThunk (呼叫 API)</div>
+    <div class="arrow">➡</div>
+    <div class="box async" id="async-api">外部 API</div>
+    <div class="arrow">⬅</div>
+    <div class="box" id="async-reducer">Reducer (fulfilled)</div>
+    <div class="arrow">➡</div>
+    <div class="box" id="async-store">Store</div>
+    <div class="arrow">⬅</div>
+    <div class="box" id="async-selector">Component (useSelector)</div>
+    <button onclick="animateReduxAsync()">模擬非同步更新</button>
+  </div>
+</div>
+
+<script>
+function flashElement(id, delay = 0) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    el.classList.add("highlight");
+    setTimeout(() => el.classList.remove("highlight"), 600);
+  }, delay);
+}
+
+function animateContext() {
+  flashElement("ctx-provider", 0);
+  flashElement("ctx-component1", 700);
+  flashElement("ctx-component2", 900);
+}
+
+function animateRedux() {
+  flashElement("rtk-component", 0);
+  flashElement("rtk-reducer", 700);
+  flashElement("rtk-store", 1300);
+  flashElement("rtk-selector", 1900);
+}
+
+function animateReduxAsync() {
+  flashElement("async-component", 0);
+  flashElement("async-thunk", 700);
+  flashElement("async-api", 1300);
+  flashElement("async-reducer", 2500);
+  flashElement("async-store", 3100);
+  flashElement("async-selector", 3700);
+}
+</script>
+
+</body>
+</html>
