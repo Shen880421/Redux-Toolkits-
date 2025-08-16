@@ -1,6 +1,7 @@
 # Wannabakery Website with React、Redux Toolkit、Tailwind
 
 這是一個用來練習 Redux Toolkit 的靜態網站專案。透過官方文件以及網路資源自學 Redux Toolkit，目的是要了解並熟悉其原理
+Vercel 網址:https://redux-toolkits-five.vercel.app/
 
 ## 🔧 技術使用
 
