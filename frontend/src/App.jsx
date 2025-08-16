@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Cart } from "./features/cart/cart";
+import Navbar from "./component/Navbar.jsx";
+import Car from "./features/cart/cart.jsx";
 
 function App() {
     const [count, setCount] = useState(0);
 
     return (
         <>
-            <Cart />
+            <Navbar />
+            <Car />
         </>
     );
 }

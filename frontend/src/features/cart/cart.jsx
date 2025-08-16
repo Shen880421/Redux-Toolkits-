@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrementByproduct, incrementByproduct } from "./cartSlice";
 
-export function Cart() {
+export default function Cart() {
     const countMacaron = useSelector((state) => state.cart.Macaron);
     const countCookie = useSelector((state) => state.cart.Cookie);
     const countCakeRoll = useSelector((state) => state.cart.CakeRoll);
