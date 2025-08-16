@@ -1,6 +1,6 @@
 function Navbar() {
     return (
-        <div className="bg-slate-400 flex items-center p-4 h-30">
+        <div className="bg-slate-300 flex items-center p-4 h-30">
             <img
                 src="img/wannabakerylogo.jpg"
                 alt="logo"
