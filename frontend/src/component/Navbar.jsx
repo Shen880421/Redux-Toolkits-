@@ -10,13 +10,22 @@ function Navbar() {
                 WannaBackery
             </h1>
             <nav className="ml-auto flex space-x-4">
-                <button className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl">
+                <button
+                    className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl"
+                    onClick={() => (window.location.href = "/")}
+                >
                     回首頁
                 </button>
-                <button className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl">
+                <button
+                    className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl"
+                    onClick={() => (window.location.href = "/")}
+                >
                     登入
                 </button>
-                <button className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl">
+                <button
+                    className="bg-white hover:bg-slate-300 text-slate-400 hover:text-white py-1 px-4 rounded text-2xl"
+                    onClick={() => (window.location.href = "/cartlist")}
+                >
                     購物車
                 </button>
             </nav>
