@@ -160,14 +160,10 @@ export default function CartCheckout() {
             {/* 訂單摘要 */}
             <div className="w-1/2 border p-4 rounded mb-6">
                 <h3 className="font-semibold mb-2">訂單摘要</h3>
-                {Object.entries(cartItems)
-                    .filter(([_, count]) => count > 0)
-                    .map(([name, count]) => (
-                        <div key={name} className="flex justify-between">
-                            <span>{name}</span>
-                            <span>{count} 個</span>
-                        </div>
-                    ))}
+                <div className="flex justify-between font-bold mt-2">
+                    <span>小計：</span>
+                    <span>NT${totalPrice.toLocaleString()}</span>
+                </div>
                 <div className="flex justify-between font-bold mt-2">
                     <span>運費</span>
                     <span>NT$80</span>
