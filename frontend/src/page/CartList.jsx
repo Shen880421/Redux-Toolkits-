@@ -1,13 +1,25 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../features/cart/cartSlice";
+import CartCheckout from "../component/CartCheckout";
+
 export default function CartList() {
     const cartItems = useSelector((state) => state.cart.CartList);
     const products = useSelector((state) => state.cart);
     const dispatch = useDispatch();
+    const totalPrice = Object.entries(cartItems).reduce(
+        (total, [name, count]) => {
+            const num = Number(count ?? 0);
+            const price = Number(products[name]?.price ?? 0);
+            return total + num * price;
+        },
+        0
+    );
+
     return (
         <div className="flex flex-col items-center p-4 mb-100 mt-30 w-full">
             <h2 className="text-6xl font-bold text-slate-950 mb-10">購物車</h2>
-            <div className="flex flex-col w-1/2 space-y-10 mt-20 ">
+
+            <div className="flex flex-col w-1/2 space-y-10 mt-20">
                 {Object.entries(cartItems).map(([name, count]) => (
                     <div
                         key={name}
@@ -18,9 +30,9 @@ export default function CartList() {
                                 <img
                                     src="img/orachocomacaroon.jpg"
                                     alt="馬卡龍"
-                                    className="object-cover w-20 h-20 shadow-xl/30 opacity-80 inset-shadow-indigo-500 mr-5"
+                                    className="object-cover w-20 h-20 mr-5"
                                 />
-                                <p>馬卡龍: {count.num}</p>
+                                <p>馬卡龍: {count}</p>
                             </div>
                         )}
                         {name === "Cookie" && (
@@ -28,9 +40,9 @@ export default function CartList() {
                                 <img
                                     src="img/caramelbuttercookie-1-1.jpg"
                                     alt="焦糖奶油餅乾"
-                                    className="object-cover w-20 h-20 shadow-xl/30 opacity-80 inset-shadow-indigo-500 mr-5"
+                                    className="object-cover w-20 h-20 mr-5"
                                 />
-                                <p>焦糖奶油餅乾: {count.num}</p>
+                                <p>焦糖奶油餅乾: {count}</p>
                             </div>
                         )}
                         {name === "CakeRoll" && (
@@ -38,9 +50,9 @@ export default function CartList() {
                                 <img
                                     src="img/vanilacakeroll.jpg"
                                     alt="香草蛋糕捲"
-                                    className="object-cover w-20 h-20 shadow-xl/30 opacity-80 inset-shadow-indigo-500 mr-5"
+                                    className="object-cover w-20 h-20 mr-5"
                                 />
-                                <p>香草蛋糕捲: {count.num}</p>
+                                <p>香草蛋糕捲: {count}</p>
                             </div>
                         )}
 
@@ -57,6 +69,11 @@ export default function CartList() {
                     </div>
                 ))}
             </div>
+            <p className="text-2xl mt-10">
+                小計：
+                <span id="total">{totalPrice.toLocaleString()}</span> 元
+            </p>
+            <CartCheckout />
         </div>
     );
 }
