@@ -1,17 +1,22 @@
 from django.shortcuts import render
+from django.contrib.auth.hashers import make_password
 from .models import User
 
 
-# Create your views here.
 def signup(request):
     if request.method == "POST":
-        # Handle signup logic here
         username = request.POST.get("username")
-        email = request.POST.get("email")
         password = request.POST.get("password")
-        user = User.objects.create_user(
-            username=username, email=email, password=password
+        email = request.POST.get("email")
+
+        if User.objects.filter(username=username).exists():
+            return render(request, "signup.html", {"error": "Username already exists."})
+
+        user = User(
+            username=username,
+            email=email,
+            password_hash=make_password(password),  # 密碼雜湊
         )
         user.save()
-        return render(request, "signup.html", {"success": True})
-    return render(request, "signup.html")
+
+        return render(request, "signup_success.html", {"user": user})
