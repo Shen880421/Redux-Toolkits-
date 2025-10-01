@@ -49,6 +49,7 @@ def list_products(request):
         products = Product.objects.all()
         product_list = [
             {
+                "id": product.id,
                 "name": product.name,
                 "attribute": product.attribute,
                 "expiration_days": product.expiration_days,
@@ -60,6 +61,27 @@ def list_products(request):
             for product in products
         ]
         return JsonResponse({"products": product_list})
+    return JsonResponse({"error": "Method not allowed"}, status=405)
+
+
+@csrf_exempt
+def get_product(request, product_id):
+    if request.method == "GET":
+        try:
+            product = Product.objects.get(id=product_id)
+            product_data = {
+                "id": product.id,
+                "name": product.name,
+                "attribute": product.attribute,
+                "expiration_days": product.expiration_days,
+                "image_url": product.image_url,
+                "price": str(product.price),
+                "stock": product.stock,
+                "description": product.description,
+            }
+            return JsonResponse({"product": product_data})
+        except Product.DoesNotExist:
+            return JsonResponse({"error": "Product not found"}, status=404)
     return JsonResponse({"error": "Method not allowed"}, status=405)
 
 
