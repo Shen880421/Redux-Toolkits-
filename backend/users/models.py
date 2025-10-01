@@ -5,7 +5,7 @@ class User(models.Model):
     GENDER_CHOICES = [("male", "男性"), ("female", "女性"), ("other", "其他")]
 
     ROLE_CHOICES = [("customer", "顧客"), ("admin", "管理員")]
-
+    id = models.AutoField("使用者ID", primary_key=True)
     account = models.CharField("帳號", max_length=100, unique=True)
     password_hash = models.CharField("密碼雜湊", max_length=255)
     username = models.CharField("使用者名稱", max_length=100)
