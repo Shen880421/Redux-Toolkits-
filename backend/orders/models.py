@@ -5,7 +5,7 @@ from coupons.models import Coupon
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(
+    customer_id = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="顧客", related_name="orders"
     )
     total_amount = models.DecimalField("總金額", max_digits=10, decimal_places=2)
