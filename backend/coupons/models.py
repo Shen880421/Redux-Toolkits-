@@ -18,6 +18,7 @@ class Coupon(models.Model):
     used_count = models.IntegerField(default=0)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
