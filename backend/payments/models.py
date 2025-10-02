@@ -1,11 +1,12 @@
 from enum import unique
 from django.db import models
+from orders.models import Order
 
 
 # Create your models here.
 class Payment(models.Model):
     id = models.AutoField(primary_key=True)
-    order_id = models.IntegerField()
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="訂單")
     status = models.CharField(
         max_length=10,
         choices=[
