@@ -1,11 +1,12 @@
 import enum
 from django.db import models
+from orders.models import Order
 
 
 # Create your models here.
 class Shipment(models.Model):
     id = models.AutoField(primary_key=True)
-    order_id = models.IntegerField()
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="訂單")
     tracking_number = models.CharField(max_length=100)
     carrier = models.CharField(
         max_length=20,
