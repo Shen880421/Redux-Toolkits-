@@ -7,7 +7,6 @@ from orders.models import Order
 class Shipment(models.Model):
     id = models.AutoField(primary_key=True)
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="訂單")
-    tracking_number = models.CharField(max_length=100)
     carrier = models.CharField(
         max_length=20,
         choices=[
@@ -40,4 +39,4 @@ class Shipment(models.Model):
         ordering = ["-created_at"]  # 依建立時間排序，最新的在前面
 
     def __str__(self):
-        return f"物流狀況 {self.order_id} - {self.tracking_number} - {self.status}"
+        return f"物流狀況 {self.order_id} - {self.status}"
