@@ -3,7 +3,7 @@ from django.db import models
 
 
 # Create your models here.
-class Order(models.Model):
+class Payment(models.Model):
     id = models.AutoField(primary_key=True)
     order_id = models.IntegerField()
     status = models.CharField(
@@ -22,9 +22,9 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "訂單"
-        verbose_name_plural = "訂單"
+        verbose_name = "付款"
+        verbose_name_plural = "付款"
         ordering = ["-created_at"]  # 依建立時間排序，最新的在前面
 
     def __str__(self):
-        return f"訂單 {self.order_id} - {self.status} - {self.amount}"
+        return f"付款 {self.order_id} - {self.status} - {self.amount}"
